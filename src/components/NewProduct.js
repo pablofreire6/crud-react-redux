@@ -2,12 +2,13 @@ import React from "react";
 import { createNewProduct } from "../actions/ProductsActions";
 import { useDispatch, useSelector } from "react-redux";
 
-const NewProduct = () => {
+const NewProduct = ({ history }) => {
   const [name, setName] = React.useState("");
   const [price, setPrice] = React.useState(0);
 
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.products.loading);
+  const error = useSelector((state) => state.products.error);
 
   const addProduct = (product) => dispatch(createNewProduct(product));
 
@@ -19,6 +20,8 @@ const NewProduct = () => {
     }
 
     addProduct({ name, price });
+
+    history.push("/");
   };
 
   return (
@@ -59,6 +62,11 @@ const NewProduct = () => {
             </form>
 
             {loading ? <p>Loading...</p> : null}
+            {error ? (
+              <p className="alert alert-danger p2 mt-4 text-center">
+                Error found
+              </p>
+            ) : null}
           </div>
         </div>
       </div>

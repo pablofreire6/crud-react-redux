@@ -5,12 +5,16 @@ import {
   START_PRODUCTS_DOWNLOADING,
   DOWNLOAD_PRODUCTS_SUCCESS,
   DOWNLOAD_PRODUCTS_ERROR,
+  GET_PRODUCT_DELETE,
+  DELETED_PRODUCT_ERROR,
+  DELETED_PRODUCT_SUCCESS,
 } from "../types";
 
 const initialState = {
   products: [],
   error: null,
   loading: false,
+  deleteProduct: null,
 };
 
 export default function (state = initialState, action) {
@@ -29,6 +33,7 @@ export default function (state = initialState, action) {
       };
     case ADD_PRODUCT_ERROR:
     case DOWNLOAD_PRODUCTS_ERROR:
+    case DELETED_PRODUCT_ERROR:
       return {
         ...state,
         loading: false,
@@ -39,6 +44,19 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
         products: action.payload,
+      };
+    case GET_PRODUCT_DELETE:
+      return {
+        ...state,
+        loading: true,
+        deleteProduct: action.payload,
+      };
+    case DELETED_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        deleteProduct: null,
+        products: state.products.filter(({ id }) => id !== action.payload),
       };
 
     default:

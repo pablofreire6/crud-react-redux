@@ -86,6 +86,8 @@ export function deleteProduct(id) {
       await clientAxios.delete(`/products/${id}`);
 
       dispatch(deleteProductSuccess(id));
+
+      Swal.fire("Deleted!", "Your file has been deleted.", "success");
     } catch (error) {
       dispatch(deleteProductError(true));
     }

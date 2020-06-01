@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startEditingProduct } from "../actions/ProductsActions";
 
-const EditProduct = () => {
+const EditProduct = ({ history }) => {
   const [product, setProduct] = React.useState({ name: "", price: "" });
   const productEdit = useSelector((state) => state.products.productedit);
   const dispatch = useDispatch();
@@ -11,9 +11,22 @@ const EditProduct = () => {
     setProduct(productEdit);
   }, [productEdit]);
 
-  const { name, price, id } = productEdit;
+  const { name, price } = product;
 
-  const submitEdit = () => {};
+  const submitEdit = (e) => {
+    e.preventDefault();
+
+    dispatch(startEditingProduct(product));
+
+    history.push("/");
+  };
+
+  const handleChange = (e) => {
+    setProduct({
+      ...product,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div className="row justify-content-center">
@@ -30,6 +43,7 @@ const EditProduct = () => {
                   placeholder="Product name"
                   name="name"
                   value={name}
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -40,6 +54,7 @@ const EditProduct = () => {
                   placeholder="Product price"
                   name="price"
                   value={price}
+                  onChange={handleChange}
                 />
               </div>
 

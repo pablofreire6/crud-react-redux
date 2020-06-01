@@ -9,6 +9,7 @@ import {
   DELETED_PRODUCT_ERROR,
   DELETED_PRODUCT_SUCCESS,
   GET_PRODUCT_EDIT,
+  EDIT_PRODUCT_SUCCESS,
 } from "../types";
 
 const initialState = {
@@ -64,6 +65,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         productedit: action.payload,
+      };
+    case EDIT_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        productedit: null,
+        products: state.products.map((product) =>
+          product.id === action.payload.id
+            ? (product = action.payload)
+            : product
+        ),
       };
 
     default:

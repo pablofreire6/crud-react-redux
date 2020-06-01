@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "name": "Jugo de Naranja",
+      "name": "Jugo de Naranjas",
       "price": "300",
       "id": 3
     },
@@ -14,6 +14,11 @@
       "name": "Cafe",
       "price": 15,
       "id": 10
+    },
+    {
+      "name": "sdsds",
+      "price": 1220,
+      "id": 11
     }
   ]
 }

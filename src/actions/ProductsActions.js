@@ -131,9 +131,11 @@ export function startEditingProduct(product) {
     dispatch(editProduct(product));
 
     try {
-      const result = await clientAxios.put(`/products/${product.id}`, product);
-      console.log(result);
-    } catch (error) {}
+      await clientAxios.put(`/products/${product.id}`, product);
+      dispatch(editProductSuccess(product));
+    } catch (error) {
+      dispatch(editProductError());
+    }
   };
 }
 
@@ -141,5 +143,19 @@ const editProduct = (product) => {
   return {
     type: START_EDIT_PRODUCT,
     payload: product,
+  };
+};
+
+const editProductSuccess = (product) => {
+  return {
+    type: EDIT_PRODUCT_SUCCESS,
+    payload: product,
+  };
+};
+
+const editProductError = () => {
+  return {
+    type: EDIT_PRODUCT_ERROR,
+    payload: true,
   };
 };

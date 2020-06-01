@@ -1,5 +1,6 @@
 import React from "react";
 import { createNewProduct } from "../actions/ProductsActions";
+import { showAlert } from "../actions/AlertActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const NewProduct = ({ history }) => {
@@ -16,6 +17,10 @@ const NewProduct = ({ history }) => {
     e.preventDefault();
 
     if (name.trim() === "" || price <= 0) {
+      const response = {
+        msg: "All fields are required",
+      };
+      dispatch(showAlert(response));
       return;
     }
 
@@ -56,7 +61,10 @@ const NewProduct = ({ history }) => {
                 />
               </div>
 
-              <button className="btn btn-primary font-weight text-uppercase w-100 d-block">
+              <button
+                type="submit"
+                className="btn btn-primary font-weight text-uppercase w-100 d-block"
+              >
                 Save
               </button>
             </form>

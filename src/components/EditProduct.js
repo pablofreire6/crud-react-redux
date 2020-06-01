@@ -1,13 +1,27 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { startEditingProduct } from "../actions/ProductsActions";
 
 const EditProduct = () => {
+  const [product, setProduct] = React.useState({ name: "", price: "" });
+  const productEdit = useSelector((state) => state.products.productedit);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    setProduct(productEdit);
+  }, [productEdit]);
+
+  const { name, price, id } = productEdit;
+
+  const submitEdit = () => {};
+
   return (
     <div className="row justify-content-center">
       <div className="col-md-8">
         <div className="card">
           <div className="card-body">
             <h2 className="text-center mb-4 font-weight-bold">Edit Product</h2>
-            <form>
+            <form onSubmit={submitEdit}>
               <div className="form-group">
                 <label>Product Name</label>
                 <input
@@ -15,6 +29,7 @@ const EditProduct = () => {
                   className="form-control"
                   placeholder="Product name"
                   name="name"
+                  value={name}
                 />
               </div>
               <div className="form-group">
@@ -24,6 +39,7 @@ const EditProduct = () => {
                   className="form-control"
                   placeholder="Product price"
                   name="price"
+                  value={price}
                 />
               </div>
 

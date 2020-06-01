@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { deleteProduct } from "../actions/ProductsActions";
+import { deleteProduct, getProductToEdit } from "../actions/ProductsActions";
 import Swal from "sweetalert2";
 
 const Product = ({ product }) => {
@@ -28,6 +28,7 @@ const Product = ({ product }) => {
   };
 
   const redirectEdit = (product) => {
+    dispatch(getProductToEdit(product));
     history.push(`/product/edit/${product.id}`);
   };
 
